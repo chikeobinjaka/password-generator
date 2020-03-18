@@ -37,11 +37,8 @@
     ></script>
     <!-- Project Specific Javascript -->
     <script src="./assets/javascript/script.js"></script>
-
-
-
-</head>
-  <body style="background-image: url('./assets/images/hd-background.png');">
+  </head>
+  <body style="background-image: url('./assets/images/pwd-gen-modal-background.jpg');">
     <div class="container" style="background-color: antiquewhite;">
       <div class="row justify-content-center" style="margin-top: 50px;">
         <div class="col-md-auto">
@@ -71,6 +68,7 @@
                 id="generated-passwords"
                 rows="5"
                 cols="140"
+                placeholder="Your Secure Password"
               >
 Loremipsumdolorsitametconsecteturadipisicingelit!Debitis@provident%voluptatum*voluptates$perferendis@#nobis?aspernatur+=neque!s#
                 </textarea
@@ -97,21 +95,57 @@ Loremipsumdolorsitametconsecteturadipisicingelit!Debitis@provident%voluptatum*vo
       </div>
     </div>
     <!-- Modal dialog-->
-    <div class="modal" role="dialog" id="pwdSpecificsModal" tabindex="-1">
+    <div
+      class="modal fade"
+      role="dialog"
+      id="pwdSpecificsModal"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+      data-backdrop="static"
+    >
       <div class="modal-dialog" role="document">
-        <div class="modal-header">
-          <h4 class="modal-title">Password</h4>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true" style="color: red;">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="staticBackdropLabel">
+              Password Specifications
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" style="color: red;">&times;</span>
+            </button>
+            <!-- Modal Header-->
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <p>Modal body text goes here.</p>
+              <input type="number" min="8" max="128" step="1" value="8" size="3" maxlength="3" required>
+            </div>
+            <!-- Modal Body-->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="modal-pwd-gen-btn"
+            >
+              Generate
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              id="modal-pwd-cancel-btn"
+            >
+              Cancel
+            </button>
+            <!-- Modal Footer-->
+          </div>
+          <!-- modal-content-->
         </div>
       </div>
     </div>

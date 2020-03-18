@@ -19,3 +19,11 @@
   border-radius: 25px;
   margin-top: 20px;
 }
+
+.pt-modal {
+  background-image: url("./assets/images/pwd-gen-modal-background.jpg");
+}
+
+.modal-backdrop {
+  background-color: red;
+}
