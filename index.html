@@ -128,12 +128,13 @@ Loremipsumdolorsitametconsecteturadipisicingelit!Debitis@provident%voluptatum*vo
               <form>
                 <div class="form-row">
                   <div class="form-group">
-                    <label for="pwd-len-input">Characters Per Password (8-128) </label>
+                    <label for="pwd-len-input">Characters Per Password (8-128)&nbsp;&nbsp;</label>
                     <input id="pwd-len-input" type="number" min="8" max="128" step="1" value="8" size="3" maxlength="3" required />
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="form-group">
+                  <label for="inline-radio">Passwords to Generate&nbsp;&nbsp;&nbsp;</label>
+                  <div class="form-group" id="inline-radio">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="number-of-passwords" id="number-of-passwords1" value="1">
                       <label for="number-of-passwords1" class="form-check-label">One</label>
@@ -150,14 +151,14 @@ Loremipsumdolorsitametconsecteturadipisicingelit!Debitis@provident%voluptatum*vo
                 </div>
                 <div class="form-row">
                   <div class="form-group">
-                    <label for="special-char-count">Characters Per Password (1-8) </label>
+                    <label for="special-char-count">Special Characters Per Password (1-8)&nbsp;&nbsp;</label>
                     <input id="special-char-count" type="number" min="1" max="8" step="1" value="2" size="1" maxlength="1" required />
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group">
                     <label for="special-char-selection">Select Special Characters</label>
-                    <select multiple required class="form-control" name="special-char-selection" id="special-char-selection">
+                    <select size="6" multiple required class="form-control" name="special-char-selection" id="special-char-selection">
                       <option style="color:red;font-weight: bold;" selected value="#"># (hash:default)</option>
                       <option selected value="!">! exclaimation</option>
                       <option selected value="*">* asterisk</option>
