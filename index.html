@@ -122,26 +122,67 @@ Loremipsumdolorsitametconsecteturadipisicingelit!Debitis@provident%voluptatum*vo
             </button>
             <!-- Modal Header-->
           </div>
-          <div class="modal-body">
-            <div class="container-fluid">
-              <input
-                type="number"
-                min="8"
-                max="128"
-                step="1"
-                value="8"
-                size="3"
-                maxlength="3"
-                required
-              />
-            </div>
+          <div class="modal-body" id="modal-body">
             <!-- Modal Body-->
+            <div class="container-fluid">
+              <form>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="pwd-len-input">Characters Per Password (8-128) </label>
+                    <input id="pwd-len-input" type="number" min="8" max="128" step="1" value="8" size="3" maxlength="3" required />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="number-of-passwords" id="number-of-passwords1" value="1">
+                      <label for="number-of-passwords1" class="form-check-label">One</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" checked type="radio" name="number-of-passwords" id="number-of-passwords3" value="3">
+                      <label for="number-of-passwords3" class="form-check-label">Three</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="number-of-passwords" id="number-of-passwords5" value="5">
+                      <label for="number-of-passwords5" class="form-check-label">Five</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="special-char-count">Characters Per Password (1-8) </label>
+                    <input id="special-char-count" type="number" min="1" max="8" step="1" value="2" size="1" maxlength="1" required />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="special-char-selection">Select Special Characters</label>
+                    <select multiple required class="form-control" name="special-char-selection" id="special-char-selection">
+                      <option style="color:red;font-weight: bold;" selected value="#"># (hash:default)</option>
+                      <option selected value="!">! exclaimation</option>
+                      <option selected value="*">* asterisk</option>
+                      <option selected value="%">% percent sign</option>
+                      <option value=&#34;>&quot; quotation mark</option>
+                      <option value=&#38>&amp; ampersand</option>
+                      <option value="?">? question mark</option>
+                      <option value="$">$ dollar sign</option>
+                      <option value="(">( left parenthesis</option>
+                      <option value=")">) right parenthesis</option>
+                      <option value="+">+ plus sign</option>
+                      <option value="-">- hyphen-minus</option>
+                      <option value="=">= equal sign</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
           <div class="modal-footer">
             <button
               type="button"
               class="btn btn-primary"
               id="modal-pwd-gen-btn"
+              onclick="generatePassword()"
             >
               Generate
             </button>
