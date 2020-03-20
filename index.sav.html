@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <!-- Project Specific CSS -->
+    <link rel="stylesheet" href="./assets/css/parolanta-main.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Password Generator</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Project Specific Javascript -->
+    <script src="./assets/javascript/script.js"></script>
+  </head>
+  <body
+    style="background-image: url('./assets/images/pwd-gen-modal-background.jpg');"
+  >
+    <div class="container" style="background-color: antiquewhite;">
+      <div class="row justify-content-center" style="margin-top: 50px;">
+        <div class="col-md-auto">
+          <h1>Password Generator</h1>
+        </div>
+      </div>
+      <!-- Row containing main body. Contains a single column. -->
+      <!-- That column will then house the rows that contains the other components -->
+      <div class="row justify-content-center pt-center-block-div">
+        <div class="col-md-auto" style="margin: 20px;">
+          <div class="row justify-content-start">
+            <div class="col-md-auto">
+              <h2>Generate a Password</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-auto">
+              <hr style="color: black;" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <textarea
+                class="pt-textarea"
+                readonly="readonly"
+                name="generated-passwords"
+                id="generated-passwords"
+                rows="5"
+                cols="140"
+                placeholder="Your Secure Password"
+                style="font-family: 'Courier New', Courier, monospace;font-size: 12px;"
+              >
+              </textarea>
+            </div>
+          </div>
+          <div class="row">
+            <hr />
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-auto">
+              <button
+                type="button"
+                id="gen-pwd-btn"
+                class="btn btn-danger btn-lg pt-gen-pwd-btn"
+                data-target="#pwdSpecificsModal"
+                data-toggle="modal"
+              >
+                Generate Password
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal dialog-->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="pwdSpecificsModal"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="staticBackdropLabel">
+              Password Specifications
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" style="color: red;">&times;</span>
+            </button>
+            <!-- Modal Header-->
+          </div>
+          <div class="modal-body" id="modal-body">
+            <!-- Modal Body-->
+            <div class="container-fluid">
+              <form>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="pwd-len-input"
+                      >Characters Per Password (8-128)&nbsp;&nbsp;</label
+                    >
+                    <input
+                      id="pwd-len-input"
+                      type="number"
+                      min="8"
+                      max="128"
+                      step="1"
+                      value="8"
+                      size="3"
+                      maxlength="3"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label for="inline-radio"
+                    >Passwords to Generate&nbsp;&nbsp;&nbsp;</label
+                  >
+                  <div class="form-group" id="inline-radio">
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="number-of-passwords"
+                        id="number-of-passwords1"
+                        value="1"
+                      />
+                      <label for="number-of-passwords1" class="form-check-label"
+                        >One</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        checked
+                        type="radio"
+                        name="number-of-passwords"
+                        id="number-of-passwords3"
+                        value="3"
+                      />
+                      <label for="number-of-passwords3" class="form-check-label"
+                        >Three</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="number-of-passwords"
+                        id="number-of-passwords5"
+                        value="5"
+                      />
+                      <label for="number-of-passwords5" class="form-check-label"
+                        >Five</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="special-char-count"
+                      >Special Characters Per Password (1-8)&nbsp;&nbsp;</label
+                    >
+                    <input
+                      id="special-char-count"
+                      type="number"
+                      min="1"
+                      max="8"
+                      step="1"
+                      value="2"
+                      size="1"
+                      maxlength="1"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="special-char-selection"
+                      >Select Special Characters</label
+                    >
+                    <select
+                      size="6"
+                      multiple
+                      required
+                      class="form-control"
+                      name="special-char-selection"
+                      id="special-char-selection"
+                    >
+                      <option
+                        style="color:red;font-weight: bold;"
+                        selected
+                        value="#"
+                        ># (hash:default)</option
+                      >
+                      <option selected value="!">! exclaimation</option>
+                      <option selected value="*">* asterisk</option>
+                      <option selected value="%">% percent sign</option>
+                      <option value="&#34;">&quot; quotation mark</option>
+                      <option value="&#38">&amp; ampersand</option>
+                      <option value="?">? question mark</option>
+                      <option value="$">$ dollar sign</option>
+                      <option value="(">( left parenthesis</option>
+                      <option value=")">) right parenthesis</option>
+                      <option value="+">+ plus sign</option>
+                      <option value="-">- hyphen-minus</option>
+                      <option value="=">= equal sign</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="modal-pwd-gen-btn"
+              onclick="generatePassword()"
+            >
+              Generate
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              id="modal-pwd-cancel-btn"
+            >
+              Cancel
+            </button>
+            <!-- Modal Footer-->
+          </div>
+          <!-- modal-content-->
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  </body>
+</html>
