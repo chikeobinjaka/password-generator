@@ -105,7 +105,7 @@
       aria-hidden="true"
       data-backdrop="static"
     >
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog" role="document" >
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="staticBackdropLabel">
@@ -266,6 +266,40 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="form-row">
+                    <label for="pwd-special-chars" style="margin-left: 10px;"
+                      >Include Special Characters:&nbsp;&nbsp;&nbsp;</label
+                    >
+                    <div class="form-group" id="pwd-special-chars">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="pwdSpecialChars"
+                          id="yes-special-chars"
+                          value="yes"
+                          checked
+                        />
+                        <label for="yes-special-chars" class="form-check-label"
+                          >Yes&nbsp;</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="pwdSpecialChars"
+                          id="no-special-chars"
+                          value="no"
+                        />
+                        <label for="no-special-chars" class="form-check-label"
+                          >No&nbsp;</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </form>
             </div>

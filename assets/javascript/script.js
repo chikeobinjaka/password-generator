@@ -24,26 +24,11 @@ const PASSWORD_COUNT = 3;
 const MAX_PASSWORD_COUNT = 5;
 var passwdCount = PASSWORD_COUNT; // Number of passwords to generate
 
-const MAX_SPECIAL_CHAR_COUNT = 8;
-const MIN_SPECIAL_CHAR_COUNT = 2;
-var maxSpecialCharCount = MIN_SPECIAL_CHAR_COUNT; // maximum number of special characters in each password
+const SPECIAL_CHARACTERS = "#!*%()@$=&+?[]{}";
 
-const SPECIAL_CHARACTERS = "#!*%";
-var specialCharacters = SPECIAL_CHARACTERS;
-
-const ALPHA_NUMERIC_CHARS =
-  "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
-
-// String.prototype.ptReplaceCharAt = function(index, replacement) {
-//   var retval = this;
-//   if (replacement != null && retval.length > index) {
-//     retval =
-//       this.substr(0, index) +
-//       replacement.charAt(index) +
-//       this.substr(index + replacement.length);
-//   }
-//   return retval;
-// };
+const UPPER_CASE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const LOWER_CASE_CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
+const NUMERIC_CHARACTERS = "0123456789";
 
 function ptReplaceCharAt(originalString, position, replacement) {
   var retval = originalString;
@@ -67,36 +52,37 @@ function ptReplaceCharAt(originalString, position, replacement) {
   }
   return retval;
 }
-/**************************************************
-    This function is called by the onClick event of 
-    the "Generate" button on the modal.
-***************************************************/
-function generatePassword() {
-  var docElement, docElements;
-  var value, intValue, stringValue;
 
+/* ***********************************************
+   Function returns the number of characters per 
+   password from the modal input
+**************************************************/
+function getPasswordLengthInput() {
+  var docElement, docElements;
+  var value, intValue, stringValue, retval;
   //    Get Characters per password entry. Default is MIN_PASSWORD_LEN
+  retval = MIN_PASSWORD_LEN;
   if (
     (docElement = document.getElementById("pwd-len-input")) != null &&
     (stringValue = docElement.value) != null &&
     (intValue = Number.parseInt(stringValue)) != NaN &&
     (intValue >= MIN_PASSWORD_LEN || intValue <= MAX_PASSWORD_LEN)
   ) {
-    passwdLen = intValue;
+    retval = intValue;
   }
-  // get special characters per password
+  return retval;
+}
 
-  if (
-    (docElement = document.getElementById("special-char-count")) != null &&
-    (stringValue = docElement.value) != null &&
-    (intValue = Number.parseInt(stringValue)) != NaN &&
-    (intValue >= MIN_PASSWORD_LEN || intValue <= MAX_PASSWORD_LEN)
-  ) {
-    maxSpecialCharCount = intValue;
-  }
-
+/* ************************************************
+Function returns the number of passwords to generate
+from the modal radio input
+***************************************************/
+function getPasswordCountInput() {
+  var docElement, docElements;
+  var value, intValue, stringValue, retval;
   // check the radio button by name, not ID
-  //
+
+  retval = PASSWORD_COUNT;
   if (
     (docElements = document.getElementsByName("number-of-passwords")) != null
   ) {
@@ -106,69 +92,150 @@ function generatePassword() {
         docElement.checked === true &&
         (intValue = Number.parseInt(docElement.value)) != NaN
       ) {
-        passwdCount = intValue;
+        retval = intValue;
+      }
+    }
+  }
+  return retval;
+}
+
+function getAllowedAlphaCharacters() {
+  var docElement, docElements;
+  var value, intValue, stringValue, retval;
+  // check if upper, lower or both cases are allowed
+  // check the radio button by name, not ID
+  stringValue = "bothcase";
+  if ((docElements = document.getElementsByName("pwdCase")) != null) {
+    for (let index = 0; index < docElements.length; index++) {
+      if (
+        (docElement = docElements[index]) != null &&
+        docElement.checked === true
+      ) {
+        stringValue = docElement.value;
       }
     }
   }
 
-  // check to see which special characters were choosen
-  // get the "option" tags
-  if (
-    (docElement = document.getElementById("special-char-selection")) != null &&
-    (docElements = document.querySelectorAll("option")) != null &&
-    docElements.length != 0
-  ) {
-    stringValue = "";
-    for (
-      let index = 0;
-      index < docElements.length && index < MAX_SPECIAL_CHAR_COUNT;
-      index++
-    ) {
-      // check if the option is selected. If so, append to stringValue
-      docElement = docElements[index];
-      //   console.log(docElement);
-      if (docElement.selected) {
-        // console.log(docElement + " (" + docElement.value + ")");
-        stringValue += docElement.value;
+  retval = "";
+  switch (stringValue.toLowerCase()) {
+    case "uppercase":
+      retval = UPPER_CASE_CHARACTERS;
+      console.log("Upper case characters are allowed");
+      break;
+    case "lowercase":
+      retval = LOWER_CASE_CHARACTERS;
+      console.log("Lower case characters are allowed");
+      break;
+    case "bothcase":
+      retval = UPPER_CASE_CHARACTERS;
+      retval += LOWER_CASE_CHARACTERS;
+      console.log("Both Upper and Lower case characters are allowed");
+      break;
+    default:
+      retval = UPPER_CASE_CHARACTERS;
+      retval += LOWER_CASE_CHARACTERS;
+      console.log("DEFAULT!! Both Upper and Lower case characters are allowed");
+      break;
+  }
+  return retval;
+}
+
+function getAllowedNumericCharacters() {
+  var docElement, docElements;
+  var value, intValue, stringValue, retval;
+  // check if numbers are allowed
+  // check the radio button by name, not ID
+  stringValue = "yes";
+  if ((docElements = document.getElementsByName("pwdNumbers")) != null) {
+    for (let index = 0; index < docElements.length; index++) {
+      if (
+        (docElement = docElements[index]) != null &&
+        docElement.checked === true
+      ) {
+        stringValue = docElement.value;
       }
     }
-    // console.log(stringValue);
-    if (stringValue.length != 0) {
-      specialCharacters = stringValue;
+  }
+  if (stringValue.toLowerCase() === "yes") {
+    retval += NUMERIC_CHARACTERS;
+    console.log("Numeric Characters are Allowed");
+  }
+
+  return retval;
+}
+
+function getAllowedSpecialCharacters() {
+  var docElement, docElements;
+  var value, intValue, stringValue, retval;
+  // check if special characters are allowed
+  // check the radio button by name, not ID
+  stringValue = "yes";
+  if ((docElements = document.getElementsByName("pwdSpecialChars")) != null) {
+    for (let index = 0; index < docElements.length; index++) {
+      if (
+        (docElement = docElements[index]) != null &&
+        docElement.checked === true
+      ) {
+        stringValue = docElement.value;
+      }
     }
   }
-  //   console.log("Password Length = " + passwdLen);
-  //   console.log("Number of Passwords to generate: " + passwdCount);
-  //   console.log("Max Special Characters = " + maxSpecialCharCount);
-  //   console.log("Special Characters: " + specialCharacters);
+  if (stringValue.toLowerCase() === "yes") {
+    retval += SPECIAL_CHARACTERS;
+    console.log("Special Characters are Allowed");
+  }
 
-  // randomly get characters from the ALPHA_NUMERIC_CHARS string up to password length for passwdCount times
+  return retval;
+}
+/* ************************************************
+Function returns string containing allowed characters
+based on radio buttons in modal dialog
+ ***************************************************/
+function getAllowedPasswordCharacters() {
+  var retval;
+
+  retval = getAllowedAlphaCharacters();
+  retval += getAllowedNumericCharacters();
+  retval += getAllowedSpecialCharacters();
+  console.log("Allowed Password Characters : " + retval);
+  return retval;
+}
+/**************************************************
+      This function is called by the onClick event of 
+      the "Generate" button on the modal.
+  ***************************************************/
+function generatePassword() {
+  var docElement, docElements;
+  var value, intValue, stringValue, allowedPasswordCharacters;
   var generatedPasswords = [];
-  var charIndex;
-  for (let count = 0; count < passwdCount; count++) {
-    var tempPassword = "";
-    for (let index = 0; index < passwdLen; index++) {
-      charIndex = Math.floor(Math.random() * ALPHA_NUMERIC_CHARS.length);
-      tempPassword += ALPHA_NUMERIC_CHARS.charAt(charIndex);
-    }
-    console.log("Unsalted Password #" + count + " = " + tempPassword);
-    generatedPasswords[count] = tempPassword;
-    // now "salt the generated password with the special characters"
-    var specialChar;
-    for (let index = 0; index < maxSpecialCharCount; index++) {
-      var position = Math.floor(Math.random() * specialCharacters.length);
-      specialChar = specialCharacters.charAt(index);
-      tempPassword = ptReplaceCharAt(tempPassword, position, specialChar);
-    }
-    console.log("SALTED Password #" + count + " = " + tempPassword);
-    generatedPasswords[count] = tempPassword;
-  }
+  var generatePassword = "";
 
+  // first clear the output
+  document.getElementById("generated-passwords").value = "";
+
+  // get password length
+  passwdLen = getPasswordLengthInput();
+  // get number of passwords to generate
+  passwdCount = getPasswordCountInput();
+  // Build string to contain allowed password characters
+  allowedPasswordCharacters = getAllowedPasswordCharacters();
+
+  // create strings from allowed characters randomly
+  var allowedCharLen = allowedPasswordCharacters.length;
+
+  for (let count = 0; count < passwdCount; count++) {
+    generatePassword = "";
+    for (let index = 0; index < passwdLen; index++) {
+      intValue = Math.floor(Math.random() * allowedCharLen);
+      generatePassword += allowedPasswordCharacters.charAt(intValue);
+    }
+    generatedPasswords[count] = generatePassword;
+  }
   // now put the passwords into the text window
   var outputString = "";
-  for (let index = 0; index < generatedPasswords.length;index++){
-      if (index > 0) outputString += "\n";
-      outputString += generatedPasswords[index];
+  for (let index = 0; index < generatedPasswords.length; index++) {
+    if (index > 0) outputString += "\n";
+    outputString += generatedPasswords[index];
   }
   document.getElementById("generated-passwords").value = outputString;
   //    The following uses the ID of the modal section of the document to
