@@ -187,56 +187,84 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="special-char-count"
-                      >Special Characters Per Password (1-8)&nbsp;&nbsp;</label
+                <div
+                  style="border-style: solid; border-radius: 10px; border-width: 5px;"
+                >
+                  <p style="margin-left: 10px;">
+                    Password Content:&nbsp;&nbsp;
+                  </p>
+                  <div class="form-row">
+                    <label for="password-case" style="margin-left: 10px;"
+                      >Case:&nbsp;&nbsp;&nbsp;</label
                     >
-                    <input
-                      id="special-char-count"
-                      type="number"
-                      min="1"
-                      max="8"
-                      step="1"
-                      value="2"
-                      size="1"
-                      maxlength="1"
-                      required
-                    />
+                    <div class="form-group" id="password-case">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="pwdCase"
+                          id="uppercase"
+                          value="uppercase"
+                        />
+                        <label for="uppercase" class="form-check-label"
+                          >Upper&nbsp;</label
+                        >
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="pwdCase"
+                          id="lowercase"
+                          value="lowercase"
+                        />
+                        <label for="lowercase" class="form-check-label"
+                          >Lower&nbsp;</label
+                        >
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="pwdCase"
+                          id="bothcase"
+                          value="bothcase"
+                          checked
+                        />
+                        <label for="bothcase" class="form-check-label"
+                          >Both&nbsp;</label
+                        >
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="special-char-selection"
-                      >Select Special Characters</label
+
+                  <div class="form-row">
+                    <label for="pwd-numbers" style="margin-left: 10px;"
+                      >Include Numbers:&nbsp;&nbsp;&nbsp;</label
                     >
-                    <select
-                      size="6"
-                      multiple
-                      required
-                      class="form-control"
-                      name="special-char-selection"
-                      id="special-char-selection"
-                    >
-                      <option
-                        style="color:red;font-weight: bold;"
-                        selected
-                        value="#"
-                        ># (hash:default)</option
-                      >
-                      <option selected value="!">! exclaimation</option>
-                      <option selected value="*">* asterisk</option>
-                      <option selected value="%">% percent sign</option>
-                      <option value="&#34;">&quot; quotation mark</option>
-                      <option value="&#38">&amp; ampersand</option>
-                      <option value="?">? question mark</option>
-                      <option value="$">$ dollar sign</option>
-                      <option value="(">( left parenthesis</option>
-                      <option value=")">) right parenthesis</option>
-                      <option value="+">+ plus sign</option>
-                      <option value="-">- hyphen-minus</option>
-                      <option value="=">= equal sign</option>
-                    </select>
+                    <div class="form-group" id="pwd-numbers">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="pwdNumbers"
+                          id="yes-numbers"
+                          value="yes"
+                          checked
+                        />
+                        <label for="yes-numbers" class="form-check-label"
+                          >Yes&nbsp;</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="pwdNumbers"
+                          id="no-numbers"
+                          value="no"
+                        />
+                        <label for="no-numbers" class="form-check-label"
+                          >No&nbsp;</label
+                        >
+                      </div>
+                    </div>
                   </div>
                 </div>
               </form>
