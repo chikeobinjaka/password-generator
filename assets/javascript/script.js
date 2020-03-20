@@ -34,6 +34,39 @@ var specialCharacters = SPECIAL_CHARACTERS;
 const ALPHA_NUMERIC_CHARS =
   "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
 
+// String.prototype.ptReplaceCharAt = function(index, replacement) {
+//   var retval = this;
+//   if (replacement != null && retval.length > index) {
+//     retval =
+//       this.substr(0, index) +
+//       replacement.charAt(index) +
+//       this.substr(index + replacement.length);
+//   }
+//   return retval;
+// };
+
+function ptReplaceCharAt(originalString, position, replacement) {
+  var retval = originalString;
+  var pos;
+  if (
+    originalString != null &&
+    replacement != null &&
+    replacement.length != 0 &&
+    (pos = Number.parseInt(position)) != NaN
+  ) {
+    if (pos >= originalString.length) {
+      retval = originalString + replacement;
+    } else if (pos == 0) {
+      retval = replacement + originalString;
+    } else if (pos < originalString.length) {
+      retval =
+        originalString.slice(0, pos - 1) +
+        replacement +
+        originalString.slice(pos);
+    }
+  }
+  return retval;
+}
 /**************************************************
     This function is called by the onClick event of 
     the "Generate" button on the modal.
@@ -93,22 +126,51 @@ function generatePassword() {
     ) {
       // check if the option is selected. If so, append to stringValue
       docElement = docElements[index];
-      console.log(docElement);
+      //   console.log(docElement);
       if (docElement.selected) {
-        console.log(docElement + " (" + docElement.value + ")");
+        // console.log(docElement + " (" + docElement.value + ")");
         stringValue += docElement.value;
       }
     }
-    console.log(stringValue);
+    // console.log(stringValue);
     if (stringValue.length != 0) {
       specialCharacters = stringValue;
     }
   }
-  console.log("Password Length = " + passwdLen);
-  console.log("Number of Passwords to generate: " + passwdCount);
-  console.log("Max Special Characters = " + maxSpecialCharCount);
-  console.log("Special Characters: " + specialCharacters);
+  //   console.log("Password Length = " + passwdLen);
+  //   console.log("Number of Passwords to generate: " + passwdCount);
+  //   console.log("Max Special Characters = " + maxSpecialCharCount);
+  //   console.log("Special Characters: " + specialCharacters);
 
+  // randomly get characters from the ALPHA_NUMERIC_CHARS string up to password length for passwdCount times
+  var generatedPasswords = [];
+  var charIndex;
+  for (let count = 0; count < passwdCount; count++) {
+    var tempPassword = "";
+    for (let index = 0; index < passwdLen; index++) {
+      charIndex = Math.floor(Math.random() * ALPHA_NUMERIC_CHARS.length);
+      tempPassword += ALPHA_NUMERIC_CHARS.charAt(charIndex);
+    }
+    console.log("Unsalted Password #" + count + " = " + tempPassword);
+    generatedPasswords[count] = tempPassword;
+    // now "salt the generated password with the special characters"
+    var specialChar;
+    for (let index = 0; index < maxSpecialCharCount; index++) {
+      var position = Math.floor(Math.random() * specialCharacters.length);
+      specialChar = specialCharacters.charAt(index);
+      tempPassword = ptReplaceCharAt(tempPassword, position, specialChar);
+    }
+    console.log("SALTED Password #" + count + " = " + tempPassword);
+    generatedPasswords[count] = tempPassword;
+  }
+
+  // now put the passwords into the text window
+  var outputString = "";
+  for (let index = 0; index < generatedPasswords.length;index++){
+      if (index > 0) outputString += "\n";
+      outputString += generatedPasswords[index];
+  }
+  document.getElementById("generated-passwords").value = outputString;
   //    The following uses the ID of the modal section of the document to
   //   reference and close it
   $(pwdSpecificsModal).modal("hide");
